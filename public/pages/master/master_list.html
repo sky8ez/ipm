@@ -1,0 +1,283 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <ol class="breadcrumb" style="margin-bottom:0px;">
+              <li class="breadcrumb-item"><a href="#/"><i class="fa fa-home"></i></a></li>
+              <li class="breadcrumb-item active"><a href="#/list/{{form_name}}">{{form_name | capitalize}}</a></li>
+            </ol>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <form class="" action="" method="">
+                    <div class="row row-space">
+                      <div class="col-md-2" style="padding-right:2px">
+                        <input ng-change="autocompleteSearch()" ng-model="input_search" class="form-control input-sm input_search" type="text" name="input_search" value="" placeholder="Field..">
+                      </div>
+                      <div class="col-md-1" style="padding-left:2px;padding-right:2px">
+                        <select ng-change="autocompleteSearch()" ng-model="input_filter" class="form-control input-sm" name="input-filter">
+                          <option value="=">=</option>
+                          <option value="like">like</option>
+                          <option value="not like">not like</option>
+                          <option value=">">></option>
+                          <option value="<"><</option>
+                          <option value=">=">>=</option>
+                          <option value="<="><=</option>
+                        </select>
+                      </div>
+                      <div class="col-md-2" style="padding-left:2px;padding-right:2px">
+                        <input ng-hide="select_input==true" ng-keyup="$event.keyCode == 13 && setFilter()" ng-model="input_value" class="form-control input-sm input_value" type="text" name="input-value" value="" placeholder="Search..">
+                        <select ng-hide="select_input==false" class="form-control input-sm" name="" ng-model="input_value">
+                          <option ng-repeat="select in selects" value="{{select}}">{{select}}</option>
+                        </select>
+                      </div>
+                      <div class="col-md-1" style="padding-left:2px;padding-right:2px">
+                        <button ng-click="setFilter()" class="btn btn-primary btn-sm" type="button" name="btn-set-filter">
+                          <md-tooltip md-direction="bottom">
+                              Set Filter
+                            </md-tooltip>
+                          <i class="fa fa-check"></i></button>
+                      </div>
+                      <div class="col-md-6" style="text-align:right">
+                        <button ng-click="refreshData()" class="btn btn-primary btn-sm" type="button" name="button">
+                          <md-tooltip md-direction="bottom">
+                              Refresh
+                            </md-tooltip>
+                            <i class="fa fa-refresh">
+                        </i></button>
+
+                        <button ng-if="role=='admin' && (form_name=='user' || form_name=='user-access')" ng-click="insertData()" class="btn btn-primary btn-sm" type="button" name="button">
+                          <md-tooltip md-direction="bottom">
+                              Insert
+                            </md-tooltip>
+                            <i class="fa fa-plus">
+                        </i></button>
+                        <button  ng-if="role=='admin' && (form_name=='user' || form_name=='user-access')"  ng-click="updateData()" class="btn btn-primary btn-sm" type="button" name="button">
+                          <md-tooltip md-direction="bottom">
+                              Update
+                            </md-tooltip>
+                            <i class="fa fa-pencil">
+                        </i></button>
+                        <button ng-if="role=='admin' && (form_name=='user' || form_name=='user-access')"   ng-click="deleteData($event)" class="btn btn-danger btn-sm" type="button" name="button">
+                          <md-tooltip md-direction="bottom">
+                              Delete
+                            </md-tooltip>
+                            <i class="fa fa-trash">
+                        </i></button>
+                        <button ng-if="role=='admin' && (form_name=='user' || form_name=='user-access')" ng-click="printData()" class="btn btn-primary btn-sm" type="button" name="button">
+                          <md-tooltip md-direction="bottom">
+                              Print
+                            </md-tooltip>
+                            <i class="fa fa-print">
+                        </i></button>
+                        <span ng-if="role=='admin' && (form_name=='user' || form_name=='user-access')" class="dropdown">
+                          <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                              <md-tooltip md-direction="bottom">
+                                  Export
+                                </md-tooltip>
+                                <i class="fa fa-file-o"></i>
+                          </button>
+                          <ul class="dropdown-menu">
+                              <li><a href="">
+                              <i class="fa fa-file-excel-o"></i> Excel</a></li>
+                              <li><a href="">
+                              <i class="fa fa-file-excel-o"></i> CSV</a></li>
+                              <li><a href="">
+                              <i class="fa fa-file-pdf-o"></i> PDF</a></li>
+                          </ul>
+                        </span>
+
+                        <span ng-repeat="access in access_list">
+
+                            <button ng-if="access.condition=='print' && access.cond_flag=='1'" ng-click="printData()" class="btn btn-primary btn-sm" type="button" name="button">
+                              <md-tooltip md-direction="bottom">
+                                  Print
+                                </md-tooltip>
+                                <i class="fa fa-print">
+                            </i></button>
+
+                            <span ng-if="access.condition=='print' && access.cond_flag=='1'" class="dropdown">
+                              <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                                  <md-tooltip md-direction="bottom">
+                                      Export
+                                    </md-tooltip>
+                                    <i class="fa fa-file-o"></i>
+                              </button>
+                              <ul class="dropdown-menu">
+                                  <li><a href="" ng-click="export_excel()">
+                                  <i class="fa fa-file-excel-o"></i> Excel</a></li>
+                                  <li><a href=""  ng-click="export_csv()">
+                                  <i class="fa fa-file-excel-o"></i> CSV</a></li>
+                                  <li><a href="" ng-click="export_pdf()">
+                                  <i class="fa fa-file-pdf-o"></i> PDF</a></li>
+                              </ul>
+                            </span>
+
+                            <button ng-if="access.condition=='insert' && access.cond_flag=='1'" ng-click="insertData()" class="btn btn-primary btn-sm" type="button" name="button">
+                              <md-tooltip md-direction="bottom">
+                                  Insert
+                                </md-tooltip>
+                                <i class="fa fa-plus">
+                            </i></button>
+
+                            <button  ng-if="access.condition=='update' && access.cond_flag=='1'"  ng-click="updateData()" class="btn btn-primary btn-sm" type="button" name="button">
+                              <md-tooltip md-direction="bottom">
+                                  Update
+                                </md-tooltip>
+                                <i class="fa fa-pencil">
+                            </i></button>
+
+                            <button ng-if="access.condition=='delete' && access.cond_flag=='1'"  ng-click="deleteData($event)" class="btn btn-danger btn-sm" type="button" name="button">
+                              <md-tooltip md-direction="bottom">
+                                  Delete
+                                </md-tooltip>
+                                <i class="fa fa-trash">
+                            </i></button>
+                        </span>
+
+                      </div>
+                    </div>
+                    <div class="row row-space">
+                      <div class="col-md-12">
+                        <div ng-if="filter['category']=='FILTER'" class="btn-group" ng-repeat="filter in filter_datas">
+                          <button data-ng-click="getFilter($event)" id="{{filter['id']}}" columnname="{{filter['column_name']}}" columntype="{{filter['column_type']}}" columntable="{{filter['column_table']}}" category="{{filter['category']}}" columnalias="{{filter['alias']}}" column="{{filter['column_name']}}" filter="{{filter['filter']}}" value="{{filter['value']}}" type="button" class="btn btn-default btn-xs btn_filter1">{{filter['alias'] + ' ' + filter['filter'] + ' "' + filter['value'] + '"'}}</button>
+                          <button data-ng-click="destroyFilter($event)" id="{{filter['id']}}"  type="button" class="btn btn-default btn-xs btn_delete">
+                            <md-tooltip md-direction="bottom">
+                                Remove Filter
+                              </md-tooltip>
+                            <i class="fa fa-remove"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <div ng-if="filter['category']=='SORT'" class="btn-group" ng-repeat="filter in filter_datas">
+                          <button id="{{filter['id']}}" columnname="{{filter['column_name']}}" columntype="{{filter['column_type']}}" columntable="{{filter['column_table']}}" category="{{filter['category']}}" columnalias="{{filter['alias']}}" column="{{filter['column_name']}}" filter="{{filter['filter']}}" value="{{filter['value']}}" type="button" class="btn btn-default btn-xs btn_filter1">{{filter['alias'] + ' "' + filter['filter'] + '"'}}</button>
+                          <button data-ng-click="destroyFilter($event)" id="{{filter['id']}}"  type="button" class="btn btn-default btn-xs btn_delete">
+                            <md-tooltip md-direction="bottom">
+                                Remove Sort
+                              </md-tooltip>
+                            <i class="fa fa-remove"></i></button>
+                        </div>
+                      </div>
+                      <div class="col-md-2" >
+
+                      </div>
+                    </div>
+                  </form>
+
+                </div>
+
+                <div class="panel-body table_con" style="padding:0;border:0px;height:450px;">
+
+                  <!-- LOADING ICON =============================================== -->
+                  <!-- show loading icon if the loading variable is set to true -->
+                  <div class="text-center" ng-show="loading" layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="75"></md-progress-circular>
+                  </div>
+
+                  <!-- <span ng-if="data_flag"> -->
+                      <table id="table_data" class="table-list table table-stripped table-condensed" arrow-selector>
+                        <thead>
+                            <tr >
+                              <th  style="width:30px"><input ng-if="delete==true" class="checkall"  ng-model="checkall1" ng-click="checkedChange()" type="checkbox" name="tb_check_all" value=""></th>
+                              <th columnname={{header.value}} ng-repeat="header in headers">
+                                  {{header.label}} <a  alias={{header.label}} columnname={{header.value}} sort={{header.sort}} ng-click="sortColumn($event)" href="" style="font-size:12px">
+                                    <i ng-if="header.sort=='sort'" class="fa fa-sort"></i>
+                                    <i ng-if="header.sort=='asc'" class="fa fa-sort-down"></i>
+                                    <i ng-if="header.sort=='desc'" class="fa fa-sort-up"></i>
+                                  </a>
+                              </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <!-- THE DATAS =============================================== -->
+                          <!-- hide these datas if the loading variable is true -->
+                          <!-- ng-hide="loading" -->
+                          <tr ng-dblclick="updateData()" ng-class="{'selected':$index == selected_id}" ng-click="selectRow($index)" id="{{data.id}}"  ng-repeat="data in datas">
+                                <td><input ng-if="delete==true" type="checkbox" name="tb_check" class="tb_check" value="" id="{{data.id}}"></td>
+                                <td  class="{{row.type}}" ng-repeat="row in data.records" style="text-align:{{row.text_align}}">
+                                  <span ng-if="row.type=='image'"> <img src="{{row.value}}" width="100px" alt=""></span>
+                                    <span ng-if="row.type=='text'"> {{row.value}}</span>
+                                    <span ng-if="row.type=='currency'">Rp {{row.value | number  : 2}}</span>
+                                    <span ng-if="row.type=='number'"> {{row.value | number}}</span>
+                                    <span ng-if="row.type=='datetime'"> {{row.value}}</span>
+                                    <span ng-if="row.type=='button'">
+                                        <a ng-if="row.value=='Taken' && row.hide==false" class="btn btn-success btn-xs" href="{{row.link}}">{{row.value}}</a>
+                                        <a ng-if="row.value!=='' && row.value!=='Taken'  && row.hide==false" class="btn btn-primary btn-xs" href="{{row.link}}">{{row.value}}</a>
+                                        <a ng-if="row.value=='' && row.hide==false" class="btn btn-danger btn-xs" href="{{row.link}}">Set Rak</a>
+                                    </span>
+                                    <span ng-if="row.type=='text-button'">
+                                        <a ng-if="row.value!==''" class="btn btn-primary btn-sm" ng-click="editRak($event)">{{row.value}}</a>
+                                        <a ng-if="row.value==''" class="btn btn-danger btn-sm" ng-click="editRak($event)">Set Rack</a>
+                                    </span>
+                                    <span ng-if="row.type=='boolean'">
+                                        <span ng-if="row.value==1" ><i style="color:green" class="fa fa-check"></i></span>
+                                        <span ng-if="row.value==0" ><i style="color:red" class="fa fa-ban"></i></span>
+                                    </span>
+                                </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <button ng-hide="hide_load_more" ng-click="loadMore()" type="button" class="btn btn-sm btn-primary" name="button">Load More..</button>
+                        </div>
+                        <div class="col-md-6" style="text-align:right;font-size:12px">
+                          <!-- <i>{{datas.length}} Record of Total {{count}} Records</i> -->
+                          <i>{{datas.length}} Records </i>&nbsp
+                        </div>
+                      </div>
+
+                  <!-- </span> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style media="screen">
+  .text-center {
+    position:   fixed;
+    z-index:    100000;
+    top:        50px;
+    padding-top: 15%;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .4 );
+  }
+
+  tr:focus{
+    outline: none;
+  }
+
+  .table_con {
+    overflow-y:auto;overflow-x:hidden
+  }
+
+  .selected {
+    color:black;
+  }
+
+</style>
+
+
+  <!-- thead, tbody { display: block; }
+
+tbody {
+    width: 100%;
+    height: 450px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+table {
+    width: 100%; /* Optional */
+}
+
+tbody td, thead th {
+    width: 15%;  /* Optional */
+} -->

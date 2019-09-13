@@ -1,0 +1,63 @@
+<md-dialog aria-label="Display" >
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{title}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="fa fa-close"></i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div style="min-height:400px;min-width:500px"  class="md-dialog-content">
+        <!-- LOADING ICON =============================================== -->
+        <!-- show loading icon if the loading variable is set to true -->
+        <div class="text-center" ng-show="loading" layout="row" layout-sm="column" layout-align="space-around">
+          <md-progress-circular md-mode="indeterminate" md-diameter="50"></md-progress-circular>
+        </div>
+
+        <div class="row display">
+          <div class="col-md-1 text_width">
+            {{material_width}} cm
+          </div>
+          <div class="col-md-11">
+            <div class="text_length">
+                {{material_length}} cm
+            </div>
+            <div style="height:100px;width:750px;border:1px solid blue;" class="">
+              <span ng-repeat="block in blocks" style="height:{{block.height}}px;width:{{block.width}}px;border:1px solid red;float:left;" class=""></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+
+<style media="screen">
+tr:focus{
+  outline: none;
+}
+
+.display {
+}
+
+.text_length {
+  height: 30px;
+  width: 100%;
+  text-align: center;
+}
+
+.text_width {
+  width: 70px;
+  vertical-align: middle;
+  margin-top: 50px;
+  text-align: right;
+}
+</style>

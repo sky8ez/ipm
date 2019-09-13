@@ -1,0 +1,114 @@
+type = {
+  text , untuk tipe data inputan free text
+  email, untuk tipe data inputan email
+  data , untuk tipe data yang link ke table lain
+  currency , untuk tipe data mata uang
+  number , untuk tipe data numeric / angka
+  radio, untuk tipe data pilihan radio button
+}
+
+col = {
+  ['row' => 12, 'col1' => 2, 'col2' => 10] , untuk full
+  ['row' => 6, 'col1' => 4, 'col2' => 8] , untuk kolom setengah
+}
+
+table = {
+  contact
+  top
+  address
+}
+
+=====================STANDARD PARAMETER====================================
+label , label field
+placeholder, tulisan di textbox
+name, nama field
+id, id field
+table, nama link ke table lain
+read_only , true or false , untuk set textbox read only
+required , true or false , untuk set textbox harus diisi
+btn_disabled , true or false , jika tipe data
+value, isi field
+value id, id isi field
+
+
+=================PENJELASAN MASING MASING TYPE======================
+1. data
+  required :
+      name
+      id
+      table
+      value_id
+      value
+  example :
+      'name' => 'city',
+      'id' => 'city_id',
+      'table' => 'city',
+      'value_id' => ($cond=="insert" ? '' : $data->city_id ),
+      'value' => ($cond=="insert" ? '' : $data->city ),
+
+2. select
+  required :
+      options
+      value
+  example :
+      'options' => [1,2],
+
+3. currency
+  required :
+      min
+      max
+  example :
+      'min' => '0', 'max' => '1000000000000',
+
+4. number
+  required :
+      min
+      max
+  example :
+      'min' => '0', 'max' => '360',
+
+5. radio
+  required :
+    option
+  example :
+    'option' => '0;Man|1;Woman',
+
+6. read_only
+  required :
+    table
+    column
+    value
+  example :
+    'table' => 'customer',
+    'column' => 'name',
+    'value' => '',
+
+7. image
+  required :
+
+  example :
+
+7. attachment
+  required :
+
+  example :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+============================END======================================

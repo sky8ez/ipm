@@ -1,0 +1,284 @@
+<md-dialog  aria-label="Detail Data" >
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{title}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="fa fa-close"></i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div style="min-height:400px;min-width:500px"  class="md-dialog-content">
+        <!-- LOADING ICON =============================================== -->
+        <!-- show loading icon if the loading variable is set to true -->
+        <div class="text-center" ng-show="loading" layout="row" layout-sm="column" layout-align="space-around">
+          <md-progress-circular md-mode="indeterminate" md-diameter="50"></md-progress-circular>
+        </div>
+        <div class="row">
+          <div class="col-md-3" style="padding:3px">
+              <label for="" style="margin-top:5px">Is Image</label>
+          </div>
+          <div class="col-md-9" style="padding:3px">
+            <md-checkbox  class="md-primary" ng-model="tb_image_flag" aria-label="Is Image">
+                <!-- Set Default Payment No With Last Available No -->
+            </md-checkbox>
+              <!-- <input type="checkbox" ng-model="tb_image_flag" name="" value=""> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3" style="padding:3px">
+              <label for="" style="margin-top:5px">Browse Image</label>
+          </div>
+          <div class="col-md-9" style="padding:3px">
+              <button ng-click="browseImage($event)" type="button" class="btn btn-sm btn-primary" name="button">Browse</button>
+          </div>
+        </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Type</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <select ng-model="tb_type"  class="form-control" name="">
+                  <option value="header">HEADER</option>
+                  <option value="footer">FOOTER</option>
+                </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Header Text</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_header_text" class="form-control" type="text" name="" value="" placeholder="Header Text">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Value Type</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+              <select ng-model="tb_value_type"  class="form-control" name="">
+                <option value="text">TEXT</option>
+                <option value="currency">CURRENCY</option>
+                <option value="datetime">DATETIME</option>
+                <option value="number">NUMBER</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Value Format</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_value_format" class="form-control" type="text" name="" value="" placeholder="Value Format">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Value</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input autocomplete1 ng-model="tb_value" class="form-control" type="text" name="" id="tb_value" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Line Height</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_line_height" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Padding X</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_padding_x" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Padding Y</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_padding_y" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Top</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_top" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Left</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_left" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Width</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_width" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Height</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_height" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Font Size</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_font_size" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Font Family</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_font_family" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Font Color</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input colorpicker id="tb_font_color" ng-model="tb_font_color" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Use Parent Font</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+              <md-checkbox  class="md-primary" ng-model="tb_use_parent_font" aria-label="Is Image">
+                  <!-- Set Default Payment No With Last Available No -->
+              </md-checkbox>
+                <!-- <input ng-model="tb_use_parent_font" type="checkbox" name="" value="" placeholder="Value"> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Font Style</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_font_style" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Font Weight</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_font_weight" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Align Horizontal</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_align_h" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Align Vertical</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_align_v" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Border Flag</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+              <md-checkbox  class="md-primary" ng-model="tb_border_flag" aria-label="Is Image">
+                  <!-- Set Default Payment No With Last Available No -->
+              </md-checkbox>
+                <!-- <input ng-model="tb_border_flag" type="checkbox" name="" value="" placeholder="Value"> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Border Width</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_border_width" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Border Color</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input colorpicker id="tb_border_color" ng-model="tb_border_color" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding:3px">
+                <label for="" style="margin-top:5px">Border Style</label>
+            </div>
+            <div class="col-md-9" style="padding:3px">
+                <input ng-model="tb_border_style" class="form-control" type="text" name="" value="" placeholder="Value">
+            </div>
+          </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <div class="row" style="margin-right:5px">
+        <div class="col-md-6" style="text-align:left">
+              &nbsp;
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-danger" ng-click="cancel()" type="button" name="button"><i class="fa fa-arrow-left"></i>
+            <md-tooltip md-direction="top">
+                Back
+              </md-tooltip>
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-primary" ng-click="setAnswer()" type="button" name="button"><i class="fa fa-check"></i>
+            <md-tooltip md-direction="top">
+                Set
+              </md-tooltip>
+          </button>
+        </div>
+      </div>
+
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+
+<style media="screen">
+tr:focus{
+  outline: none;
+}
+
+.md-dialog-container {
+    z-index: 999999;}
+
+.colorpicker   {
+    z-index: 99999999999;
+}
+</style>

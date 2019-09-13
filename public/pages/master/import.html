@@ -1,0 +1,135 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8  col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Import / Export</div>
+                <div class="panel panel-default">
+                  <!-- LOADING ICON =============================================== -->
+                  <!-- show loading icon if the loading variable is set to true -->
+                  <div class="text-center" ng-show="loading" layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="75"></md-progress-circular>
+                  </div>
+
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                           Export Template :
+                         </div>
+                        <div class="col-md-6">
+                           <select ng-model="cmb_export" class="form-control" name="">
+                             <option value="CUSTOMER">CUSTOMER</option>
+                             <option value="PACKET">PACKET</option>
+                             <option value="RAK">RAK</option>
+                             <!-- <option value="PRINT-TEMPLATE">PRINT-TEMPLATE</option>
+                             <option value="MEMBER">MEMBER</option>
+                             <option value="PAYMENT">PAYMENT</option> -->
+                           </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+
+                         </div>
+                        <div class="col-md-6">
+                          <div class="checkbox">
+                             <label><input ng-model="with_data" type="checkbox" value="">With Data</label>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row" style="margin-top:10px">
+                        <div class="col-md-12" style="text-align:right">
+                            <button ng-click="export()" type="button" class="btn btn-sm btn-primary" name="button">Export</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <form class="" action="index.html" method="post">
+                        <div class="row">
+                          <div class="col-md-6">
+                             Import Data :
+                           </div>
+                          <div class="col-md-6">
+
+                            <select ng-model="cmb_import" class="form-control" name="">
+                              <option value="CUSTOMER">CUSTOMER</option>
+                              <option value="PACKET">PACKET</option>
+                              <option value="RAK">RAK</option>
+                              <!-- <option value="PRINT-TEMPLATE">PRINT-TEMPLATE</option>
+                              <option value="MEMBER">MEMBER</option>
+                              <option value="PAYMENT">PAYMENT</option> -->
+                            </select>
+
+
+                              </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+
+                           </div>
+                          <div class="col-md-6">
+                            <div class="input-group">
+                              <span>{{file_name}}</span>
+                              <!-- <span class="input-group-addon"> -->
+                                <input type="file" ngf-select id="fileinput" ng-model="inputFile" name="inputFile"
+                                 accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" ngf-max-size="20MB"  />
+                                <!-- <label class="btn btn-success btn-file btn-xs">
+                                     Browse <input type="file" style="display: none;">
+                                 </label> -->
+                                 <!-- <label class="btn btn-success btn-file btn-xs">
+                                   Browse <input ng-model="picFile" onchange="angular.element(this).scope().changeFile(this)" name="inputFile" type="file" id="fileinput" style="display: none;">
+                                 </label> -->
+                                 <!-- <img  class="lazy" id="imageCon" data-original="{{data.value}}" alt="" style="width:304px"> -->
+                                 <!-- <img  class="lazy" id="imageCon" src="{{data.value}}" alt="" style="width:304px"> -->
+
+
+                              <!-- </span> -->
+
+                            </div>
+
+
+                              </div>
+                        </div>
+                        <div class="row" style="margin-top:10px">
+                          <div class="col-md-12" style="text-align:right">
+                              <button ng-click="import()" type="button" class="btn btn-sm btn-primary" name="button">Import</button>
+                          </div>
+                        </div>
+
+                        <div class="row" style="margin-top:10px">
+                          <span ng-repeat="log in logs">
+                            {{log}} <br>
+                          </span>
+                        </div>
+
+                      </form>
+
+
+                    </div>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style media="screen">
+  .text-center {
+    position:   fixed;
+    z-index:    100000;
+    top:        50px;
+    padding-top: 15%;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .4 );
+  }
+
+  tr:focus{
+    outline: none;
+  }
+</style>

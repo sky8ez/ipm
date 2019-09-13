@@ -1,0 +1,142 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading" >
+                  <h4 style="text-align:center">
+                  {{title}}</h3>
+                 <div class="row">
+                   <div class="col-md-3">
+                     <input datepicker class="datefrom form-control" type="text" name="" value="" placeholder="date from">
+                   </div>
+                   <div class="col-md-3">
+                     <input datepicker class="dateto form-control" type="text" name="" value="" placeholder="date to">
+                   </div>
+                   <div class="col-md-3">
+                      <select ng-change="change_date_quick()" ng-model="quick_date" class="form-control" name="">
+                        <option value="All">All</option>
+                        <option value="Today">Today</option>
+                        <option value="Last Month">Last Month</option>
+                        <option value="Last Year">Last Year</option>
+                        <option value="This Month">This Month</option>
+                        <option value="This Year">This Year</option>
+                      </select>
+                   </div>
+                   <div class="col-md-3">
+                     <button ng-click="refresh_data()" class="btn btn-default btn-sm" type="button" name="button">Refresh</button>
+                     <button ng-click="export_excel()" class="btn btn-default btn-sm" type="button" name="button">Excel</button>
+                     <button ng-click="export_csv()" class="btn btn-default btn-sm" type="button" name="button">CSV</button>
+                     <button ng-click="export_pdf()"   class="btn btn-default btn-sm" type="button" name="button">PDF</button>
+                   </div>
+                 </div>
+                 <div ng-hide="filter_no_flag==false" class="row">
+                   <div class="col-md-4">
+                     <input ng-model="nofrom" class="nofrom form-control" type="text" name="" value="" placeholder="No From">
+                   </div>
+                   <div class="col-md-1" style="text-align:center;margin-top:10px">
+                      <label for="" >S/D</label>
+                   </div>
+                   <div class="col-md-4">
+                     <input ng-model="noto" class="noto form-control" type="text" name="" value="" placeholder="No To">
+                   </div>
+
+                   <div class="col-md-3">
+                      &nbsp;
+                    </div>
+                 </div>
+                 <div class="row">
+                   <div class="col-md-3" ng-repeat="record in search">
+                     <span ng-if="record.type=='select'">
+                       <select ng-model="record.val" class="form-control" name="">
+                         <option value="{{opt}}" ng-repeat="opt in record.options">{{opt}}</option>
+                       </select>
+                     </span>
+                     <span ng-if="record.type=='text'">
+                        <input ng-model="record.val" placeholder="{{record.placeholder}}" class="form-control" type="text" name="" value="">
+                     </span>
+                   </div>
+                 </div>
+
+                </div>
+
+                <div class="panel-body" style="overflow-x:auto;font-size:12px;height:420px">
+                  <!-- LOADING ICON =============================================== -->
+                  <!-- show loading icon if the loading variable is set to true -->
+                  <div class="text-center" ng-show="loading" layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="75"></md-progress-circular>
+                  </div>
+                    <div id="slick"  style="width:100%;height:380px;"></div>
+                     <!-- s-grid -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style media="screen">
+  .highlight {
+    background-color: gray;
+    border: 1px gray solid;
+  }
+  .highlight:hover {
+    background-color: gray;
+    border: 1px gray solid;
+  }
+  .highlight:focus {
+    background-color: gray;
+    border: 1px gray solid;
+  }
+
+  /*thead, tbody { display: block}*/
+
+
+tbody {
+    height: 350px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+
+.text-center {
+  position:   fixed;
+  z-index:    100000;
+  top:        50px;
+  padding-top: 15%;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .4 );
+}
+
+.master-form input.ng-invalid.ng-touched {
+  border-bottom: 2px solid red;
+}
+
+/*.master-form input.ng-valid.ng-touched {
+    border-bottom: 2px solid rgba(0,0,0,.15);
+}*/
+
+.slick-headerrow-column {
+     background: #87ceeb;
+     text-overflow: clip;
+     -moz-box-sizing: border-box;
+     box-sizing: border-box;
+   }
+   .slick-headerrow-column input {
+     margin: 0;
+     padding: 0;
+     width: 100%;
+     height: 100%;
+     -moz-box-sizing: border-box;
+     box-sizing: border-box;
+   }
+
+</style>
+
+
+<!-- .slick-viewport {
+  overflow: scroll !important;
+} -->
+
+<!-- .totals-viewport {
+  top : -10px !important;
+} -->

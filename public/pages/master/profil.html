@@ -1,0 +1,345 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8  col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">User Profile</div>
+                <div class="panel panel-default">
+                  <!-- LOADING ICON =============================================== -->
+                  <!-- show loading icon if the loading variable is set to true -->
+                  <div class="text-center" ng-show="loading" layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="75"></md-progress-circular>
+                  </div>
+                    <form name="textForm" id="textForm" class="master-form" enctype="multipart/form-data" novalidate>
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <!-- LOADING ICON =============================================== -->
+                      <!-- show loading icon if the loading variable is set to true -->
+                      <div class="text-center" ng-show="loading" layout="row" layout-sm="column" layout-align="space-around">
+                        <md-progress-circular md-mode="indeterminate" md-diameter="75"></md-progress-circular>
+                      </div>
+                          <div class="row">
+                            <div class="col-md-{{data.col.row}}" ng-repeat="data in datas">
+                                <!-- {{$index}} -->
+                              <div class="row" ng-if="data.type=='blank'">
+                                <div class="col-md-{{data.col.col1}}">
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                 </div>
+                              </div>
+                              <div class="row" ng-if="data.type=='datetime'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                  <!-- <ng-form name="textForm"> -->
+                                    <!-- <md-datepicker  ng-model="ctrl.myDate" md-placeholder="Enter date"></md-datepicker> -->
+                                    <input ng-change="change_date($index)" ng-if="data.disable=='true'" datepicker-disable  ng-readonly={{data.read_only}} ng-required="{{data.required}}" ng-model="data.value" name="{{data.name}}" placeholder="{{data.placeholder}}" class="form-control datepicker1 datepick{{$index}}" type="text" value="{{data.value}}">
+                                    <input ng-change="change_date($index)" ng-if="data.disable=='false'" datepicker  ng-readonly={{data.read_only}} ng-required="{{data.required}}" ng-model="data.value" name="{{data.name}}" placeholder="{{data.placeholder}}" class="form-control datepicker1 datepick{{$index}}" type="text" value="{{data.value}}">
+                                    <div ng-show="textForm.$submitted || textForm.{{data.name}}.$touched">
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$invalid">Field Must be Filled.</span>
+                                    </div>
+                                  <!-- </ng-form> -->
+                                 </div>
+                              </div>
+                              <div ng-hide="data.hide" class="row" ng-if="data.type=='text'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                  <!-- <ng-form name="textForm"> -->
+                                    <input ng-readonly=data.read_only ng-required="data.required" ng-model="data.value" name="{{data.name}}" placeholder="{{data.placeholder}}" class="form-control" type="text" value="{{data.value}}">
+                                    <div ng-show="textForm.$submitted || textForm.{{data.name}}.$touched">
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$invalid">Field Must be Filled.</span>
+                                    </div>
+                                  <!-- </ng-form> -->
+                                 </div>
+                              </div>
+                              <div ng-hide="data.hide" class="row" ng-if="data.type=='multitext'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                  <!-- <ng-form name="textForm"> -->
+                                    <textarea  cols="40" rows="10" ng-readonly={{data.read_only}} ng-required="data.required" ng-model="data.value" name="{{data.name}}" placeholder="{{data.placeholder}}" class="form-control" type="text" value="{{data.value}}"></textarea>
+                                    <div ng-show="textForm.$submitted || textForm.{{data.name}}.$touched">
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$invalid">Field Must be Filled.</span>
+                                    </div>
+                                  <!-- </ng-form> -->
+                                 </div>
+                              </div>
+                              <div ng-hide="{{data.hide}}"  class="row" ng-if="data.type=='formula'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                  <!-- <ng-form name="textForm">  -->
+                                    <input ng-readonly=true format="number" ng-required="{{data.required}}" name="{{data.name}}"
+                                    placeholder="{{data.placeholder}}" class="form-control" type="text" max="{{data.max}}" min="{{data.min}}" value="{{datas[6].value * datas[7].value}}">
+
+                                    <div ng-show="textForm.$submitted || textForm.{{data.name}}.$touched">
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.number">Number Not Valid</span>
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.max">Value is larger than max value</span>
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.min">Value is smaller than min value</span>
+                                    </div>
+                                  <!-- </ng-form> -->
+                                 </div>
+                              </div>
+                              <div ng-hide="{{data.hide}}"  class="row" ng-if="data.type=='select'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                  <!-- <ng-form name="textForm"> -->
+                                    <select ng-change="change_select()" ng-readonly={{data.read_only}} ng-required="{{data.required}}"  ng-model="data.value" name="{{data.name}}" placeholder="{{data.placeholder}}" class="form-control" >
+                                        <option value="">select options...</option>
+                                        <option ng-repeat="option in data.options" value="{{option}}">{{option}}</option>
+                                    </select>
+                                    <div ng-show="textForm.$submitted || textForm.{{data.name}}.$touched">
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$invalid">Field Must be Filled.</span>
+                                    </div>
+                                  <!-- </ng-form> -->
+                                 </div>
+                              </div>
+                              <div ng-hide="{{data.hide}}"  class="row" ng-if="data.type=='email'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                  <!-- <ng-form name="textForm"> -->
+                                    <input ng-readonly={{data.read_only}} ng-required="{{data.required}}" ng-model="data.value" name="{{data.name}}" placeholder="{{data.placeholder}}" class="form-control" type="email" value="{{data.value}}">
+                                    <div ng-show="textForm.$submitted || textForm.{{data.name}}.$touched">
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.required">Field Must be Filled.</span>
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.email">Email Not Valid</span>
+                                    </div>
+                                  <!-- </ng-form> -->
+                                 </div>
+                              </div>
+                              <div ng-hide="{{data.hide}}"  class="row" ng-if="data.type=='password'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                  <!-- <ng-form name="textForm"> -->
+                                    <input id='pw1' ng-readonly={{data.read_only}} ng-required="{{data.required}}" data-ng-model="data.value" name="{{data.name}}" placeholder="{{data.placeholder}}" class="form-control" type="password" value="{{data.value}}">
+                                    <input id='pw2' pw-check='pw1' ng-readonly={{data.read_only}} ng-required="{{data.required}}" ng-model="data.value_repeat" name="{{data.name_repeat}}" placeholder="Confirm Password" class="form-control" type="password" value="{{data.value_repeat}}">
+                                    <div ng-show="textForm.$submitted || textForm.{{data.name}}.$touched || textForm.$error">
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.required">Field Must be Filled.</span>
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.email">Email Not Valid</span>
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.pwmatch">Password are not equal!</span>
+                                    </div>
+                                  <!-- </ng-form> -->
+                                 </div>
+                              </div>
+                              <div ng-hide="{{data.hide}}"  class="row" ng-if="data.type=='number'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                  <!-- <ng-form name="textForm"> -->
+                                    <input ng-readonly="data.read_only" ng-required="data.required" ng-model="data.value" name="{{data.name}}"
+                                    placeholder="{{data.placeholder}}" class="form-control" type="number" max="{{data.max}}" min="{{data.min}}" value="{{data.value}}">
+                                    <div ng-show="textForm.$submitted || textForm.{{data.name}}.$touched">
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.number">Number Not Valid</span>
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.max">Value is larger than max value</span>
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.min">Value is smaller than min value</span>
+                                    </div>
+                                  <!-- </ng-form> -->
+                                 </div>
+                              </div>
+                              <div ng-hide="data.hide"  class="row" ng-if="data.type=='checkbox'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                  <!-- <ng-form name="textForm"> -->
+                                    <input ng-readonly={{data.read_only}} ng-required="{{data.required}}" ng-model="data.value" name="{{data.name}}"
+                                    placeholder="{{data.placeholder}}" type="checkbox" style="margin-top:15px" >
+                                    <!-- ng-checked="{{data.value}}" -->
+                                    <div ng-show="textForm.$submitted || textForm.{{data.name}}.$touched">
+
+                                    </div>
+                                  <!-- </ng-form> -->
+                                 </div>
+                              </div>
+                              <div ng-hide="data.hide"  class="row" ng-if="data.type=='image'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                    <label class="btn btn-primary btn-file btn-sm">
+                                      Browse <input ng-model="picFile" onchange="angular.element(this).scope().changeFile(this)" name="inputFile" type="file" id="fileinput" style="display: none;">
+                                    </label>
+                                    <!-- <img  class="lazy" id="imageCon" data-original="{{data.value}}" alt="" style="width:304px"> -->
+                                    <img  class="lazy" id="imageCon" src="{{data.value}}" alt="" style="width:304px">
+
+                                    <!-- <i ng-show="myForm.userName.$error.required">*required</i>
+                                      <input id="fileinput" type="file" ngf-select ng-model="picFile" name="file"
+                                             accept="image/*" ngf-max-size="2MB" required
+                                             ngf-model-invalid="errorFile">
+                                      <i ng-show="myForm.file.$error.required">*required</i><br>
+                                      <i ng-show="myForm.file.$error.maxSize">File too large
+                                          {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+                                          <img width="100px" src="{{data.value}}" ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Remove</button>
+                                      <br> -->
+
+                                 </div>
+                              </div>
+                              <div ng-hide="data.hide"  class="row" ng-if="data.type=='currency'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                  <!-- <ng-form name="textForm"> -->
+                                    <input  ng-readonly="data.read_only" format="number" ng-change="calculate()" ng-required="data.required" ng-model="data.value" name="{{data.name}}"
+                                    placeholder="{{data.placeholder}}" class="form-control" type="text" max="{{data.max}}" min="{{data.min}}" value="{{data.value}}">
+
+                                    <div ng-show="textForm.$submitted || textForm.{{data.name}}.$touched">
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.number">Number Not Valid</span>
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.max">Value is larger than max value</span>
+                                      <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.min">Value is smaller than min value</span>
+                                    </div>
+                                  <!-- </ng-form> -->
+                                 </div>
+                              </div>
+                              <div ng-hide="data.hide"  class="row" ng-if="data.type=='data'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                  <!-- <ng-form name="textForm"> -->
+                                      <div class="input-group" >
+                                        <input ng-model="data.value_id" type="hidden">
+                                        <input cond="{{data.cond}}" cond="{{data.cond}}" table="{{data.table}}" ng-required="data.required" index="{{$index}}" ng-model="data.value" name="{{data.name}}" placeholder="{{data.placeholder}}" class="form-control tb_data" type="text" name="name" value="{{data.value}}">
+                                        <span class="input-group-btn">
+                                          <button ng-disabled={{data.btn_disabled}} index="{{$index}}" cond="{{data.cond}}" table="{{data.table}}" ng-click="searchData($event)" class="btn btn-secondary btn-sm btn-primary" type="button"><i class="fa fa-search"></i></button>
+                                        </span>
+                                      </div>
+                                      <div ng-show="textForm.$submitted || textForm.{{data.name}}.$touched">
+                                        <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.required">Field Must be Filled.</span>
+                                        <span style="font-size:11px" class="help-block" ng-show="textForm.{{data.name}}.$error.email">Email Not Valid</span>
+                                      </div>
+                                  <!-- </ng-form> -->
+                                </div>
+                              </div>
+                              <div ng-hide="data.hide"  class="row" ng-if="data.type=='table'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <!-- <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label> -->
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+                                  <div class="col-md-12">
+                                    <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                    <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <hr style="margin-top:2px;margin-bottom:5px">
+                                    <button ng-click="addNewRow($index)" type="button" name="btn_insert" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> add new</button>
+
+                                    <table style="margin-top:5px" class="table table-bordered table-stripped">
+                                      <thead>
+                                        <tr>
+                                            <th ng-hide="column.hide" column="{{column.col_name}}" ng-repeat="column in data.columns">
+                                              {{column.header}}
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr ng-repeat="row in data.details">
+                                          <td ng-hide="column.hide" column="{{column.col_name}}" ng-repeat="column in data.columns">
+                                            <span ng-if="column.type=='sequence_no'">
+                                                {{row[column.col_name]}}
+                                            </span>
+                                            <span ng-if="column.type=='text'">
+                                              <input type="text" class="form-control" ng-model="row[column.col_name]" name="" value="">
+                                            </span>
+                                            <span ng-if="column.type=='currency'">
+                                                <input ng-change="calculate()" format="number" ng-model="row[column.col_name]" type="text" class="form-control" name="" value="">
+                                            </span>
+                                          </td>
+                                          <td><button ng-click="deleteRow($parent.$index,$index)" class="btn btn-default btn-sm" type="button" name="button"><i class="fa fa-trash"></i></button></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+
+                                  </div>
+                                 </div>
+                              </div>
+                              <div ng-hide="{{data.hide}}"  class="row" ng-if="data.type=='access-menu'">
+                                <div class="col-md-{{data.col.col1}}">
+                                  <label ng-show="data.required" style="padding-top:10px" for="">{{data.label}} *</label>
+                                  <label ng-hide="data.required" style="padding-top:10px" for="">{{data.label}}</label>
+                                </div>
+                                <div class="col-md-{{data.col.col2}}">
+
+                                    <table class="table">
+                                      <tr>
+                                        <th>Form</th>
+                                        <th>Insert</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                        <th>Detail</th>
+                                        <th>Print</th>
+                                        <th>Nav</th>
+                                      </tr>
+                                      <tr id="{{detail.id}}" ng-repeat="detail in data.menu_detail">
+                                        <td>{{detail.name}}</td>
+                                        <td><input type="checkbox" name="" value="" ng-model="detail.insert"  ></td>
+                                        <td><input type="checkbox" name="" value="" ng-model="detail.update"  ></td>
+                                        <td><input type="checkbox" name="" value="" ng-model="detail.delete"  ></td>
+                                        <td><input type="checkbox" name="" value="" ng-model="detail.detail"  ></td>
+                                        <td><input type="checkbox" name="" value="" ng-model="detail.print"   ></td>
+                                        <td><input type="checkbox" name="" value="" ng-model="detail.nav"     ></td>
+                                      </tr>
+                                    </table>
+                              </div>
+                            </div>
+                          </div>
+
+                  </div>
+
+
+                      <div class="row">
+                        <div class="col-md-12" style="text-align:right;margin-top:20px">
+                            <button ng-click="saveProfil()" type="button" class="btn btn-sm btn-primary" name="button">Save</button>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style media="screen">
+  .text-center {
+    position:   fixed;
+    z-index:    100000;
+    top:        50px;
+    padding-top: 15%;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .4 );
+  }
+
+  tr:focus{
+    outline: none;
+  }
+</style>

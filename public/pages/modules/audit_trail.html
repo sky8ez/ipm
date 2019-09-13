@@ -1,0 +1,67 @@
+<md-dialog aria-label="Audit Trail" >
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{title}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="fa fa-close"></i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div style="min-height:400px;min-width:500px"  class="md-dialog-content">
+        <!-- LOADING ICON =============================================== -->
+        <!-- show loading icon if the loading variable is set to true -->
+        <div class="text-center" ng-show="loading" layout="row" layout-sm="column" layout-align="space-around">
+          <md-progress-circular md-mode="indeterminate" md-diameter="50"></md-progress-circular>
+        </div>
+          <table id="table-audit" class="table-search table table-condensed">
+            <thead>
+              <th >Status</th>
+              <th >Column</th>
+              <th >Value Old</th>
+              <th >Value New</th>
+              <th >Modified User</th>
+              <th >Updated At</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="data in details">
+                <td ng-repeat="row in data.records">{{row.value}}
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+<hr>
+      <h4>PRINT STATUS</h4>
+          <div class="row">
+            <div class="col-md-12">
+              <table id="table-audit" class="table-search table table-condensed">
+                <thead>
+                  <th style="width:200px">Print Date</th>
+                  <th >User</th>
+                  <th style="width:400px">Browser</th>
+                  <th >IP</th>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="data in print_details">
+                    <td ng-repeat="row in data.records">{{row.value}}
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+      </div>
+    </md-dialog-content>
+</md-dialog>
+
+<style media="screen">
+tr:focus{
+  outline: none;
+}
+</style>

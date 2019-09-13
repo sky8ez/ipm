@@ -1,0 +1,99 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8  col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">General Settings</div>
+                <div class="panel panel-default">
+                  <!-- LOADING ICON =============================================== -->
+                  <!-- show loading icon if the loading variable is set to true -->
+                  <div class="text-center" ng-show="loading" layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="75"></md-progress-circular>
+                  </div>
+
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <div class="row" ng-repeat="data in datas">
+                        <div ng-if="data.type=='checkbox'" class="col-md-12">
+                           <!-- <md-checkbox  class="md-primary" ng-model="data.cb1" aria-label="Checkbox 1">
+                               Set Default Payment No With Last Available No
+                           </md-checkbox> -->
+                           <md-switch class="md-primary" ng-model="data.value" aria-label="Switch 1">
+                              {{data.title}}
+                           </md-switch>
+                        </div>
+
+                        <div ng-if="data.type=='text'" class="col-md-12">
+                          <div class="col-md-4">
+                            <label for="">{{data.title}}</label>
+                          </div>
+                          <div class="col-md-8">
+                            <input class="form-control" type="text" ng-model="data.value"  name="" value="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12" style="text-align:right">
+                            <button ng-click="saveGeneral()" type="button" class="btn btn-sm btn-primary" name="button">Save</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                           Clean Up Database Data and Backup Before Date :
+                         </div>
+                        <div class="col-md-6">
+                           <input datepicker class="dateto form-control" type="text" name="" value="" placeholder="date to">
+                        </div>
+                      </div>
+                      <div class="row" style="margin-top:10px">
+                        <div class="col-md-12" style="text-align:right">
+                            <button ng-click="cleanUp()" type="button" class="btn btn-sm btn-primary" name="button">Clean Up</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                           Backup Database Manually
+                         </div>
+                        <div class="col-md-6">
+
+                        </div>
+                      </div>
+                      <div class="row" style="margin-top:10px">
+                        <div class="col-md-12" style="text-align:right">
+                            <button ng-click="backup()" type="button" class="btn btn-sm btn-primary" name="button">Backup</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style media="screen">
+  .text-center {
+    position:   fixed;
+    z-index:    100000;
+    top:        50px;
+    padding-top: 15%;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .4 );
+  }
+
+  tr:focus{
+    outline: none;
+  }
+</style>

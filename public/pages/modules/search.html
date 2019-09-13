@@ -1,0 +1,86 @@
+<md-dialog aria-label="Search Data" >
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{title}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="fa fa-close"></i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div style="min-height:400px;min-width:250px"  class="md-dialog-content">
+        <!-- LOADING ICON =============================================== -->
+        <!-- show loading icon if the loading variable is set to true -->
+        <div class="text-center" ng-show="loading" layout="row" layout-sm="column" layout-align="space-around">
+          <md-progress-circular md-mode="indeterminate" md-diameter="50"></md-progress-circular>
+        </div>
+          <div class="row`">
+            <div class="col-md-6" style="padding:3px">
+              <select ng-model="cmb_search" class="form-control input-sm" name="">
+                <option value="{{header.value}}" ng-repeat="header in headers">
+                    {{header.label}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-6" style="padding:3px">
+                <input md-autofocus ng-model="tb_search" ng-change="filterSearch($event)" class="form-control input-sm" type="text" name="tb_search" value="" placeholder="Search..">
+            </div>
+          </div>
+          <table id="table-search" class="table-search table table-condensed">
+            <thead>
+              <th columnname={{header.value}} ng-repeat="header in headers">
+                  {{header.label}}
+              </th>
+            </thead>
+            <tbody>
+              <tr id="{{data.id}}" class="{{data.id}}search" ng-dblClick="setAnswer()" ng-click="selectRow($event)"  ng-repeat="data in data_search">
+                <td ng-if="row.type=='text'"  class="{{row.type}} {{row.role}}" ng-repeat="row in data.records">{{row.value}}
+                </td>
+                <td ng-if="row.type=='image'" class="{{row.type}} {{row.role}}" ng-repeat="row in data.records">
+                  <img src="{{row.value}}" width="100px" alt="">
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+            <button ng-hide="hide_load_more" ng-click="loadMore()" href="" class="btn btn-primary btn-xs">Load More</button>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <div class="row" style="margin-right:5px">
+        <div class="col-md-6" style="text-align:left">
+          <button class="btn btn-default" ng-click="newData()" type="button" name="button"><i class="fa fa-plus"> </i>
+            <md-tooltip md-direction="top">
+                New Data
+              </md-tooltip>
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-danger" ng-click="cancel()" type="button" name="button"><i class="fa fa-arrow-left"></i>
+            <md-tooltip md-direction="top">
+                Back
+              </md-tooltip>
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-primary" ng-click="setAnswer()" type="button" name="button"><i class="fa fa-check"></i>
+            <md-tooltip md-direction="top">
+                Set
+              </md-tooltip>
+          </button>
+        </div>
+      </div>
+
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+
+<style media="screen">
+tr:focus{
+  outline: none;
+}
+</style>

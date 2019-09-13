@@ -1,0 +1,201 @@
+<!-- <script src="{{ asset('plugins/printarea/printThis.js') }}"></script> -->
+
+  <div class="panel panel-default">
+    <div class="panel-heading" >
+    <div class="row">
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-3">
+        <select ng-model="cmbtemplate"  ng-change="onchange()" class="form-control" name="cmb_print_name" id="cmb_print_name">
+            <option value="">select print...</option>
+            <option value="{{print_template.id}}" ng-repeat="print_template in print_templates">
+              {{print_template.name}}
+            </option>
+        </select>
+      </div>
+      <div class="col-md-3" style="text-align:right">
+        <button ng-click="print()" type="button" name="btn_print" id="btn_print" class="btn btn-sm btn-primary">Print</button>
+      </div>
+      <div class="col-md-3">
+      </div>
+    </div>
+
+    </div>
+</div>
+<div id="print_form_con">
+  <div class="print_form page-break">
+    <div ng-hide="hide_table" class="table_container" style="position:absolute">
+      <table width="100%" class="table1" border="1" data-borderstyle="full">
+        <thead>
+          <tr>
+
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <tfoot>
+        <div class="footer1">
+
+        </div>
+      </tfoot>
+    </div>
+
+    <!-- <div class="divFooter">
+      <img src="/css/images/footer.jpg" alt="" />
+    </div> -->
+  </div>
+
+
+</div>
+
+<style media="print">
+thead {
+  display: table-header-group;
+}
+
+/*tfoot {display: table-footer-group;}*/
+
+.table_container {
+  min-height: 50px;
+  border: 1px solid black;
+}
+
+tbody > tr {
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.divFooter {
+           position: fixed;
+           bottom: 0;
+           height: 120px;
+           width: 100%;
+       }
+
+/*body
+{
+  margin: 10mm 10mm 10mm 10mm;
+}*/
+
+table {
+  border: 0px;
+
+}
+thead tr th {
+  border: 1px solid black;
+}
+
+tbody tr td {
+  border-top:0px;
+  border-bottom: 0px;
+  border-left:1px solid black;
+  border-right:1px solid black;
+}
+
+
+.panel {
+  display:none;
+}
+
+.row {
+  display:none;
+}
+
+.navbar {
+  display:none;
+}
+
+/*.print_form {
+  position: relative;
+  margin: auto;
+  background-color:white;
+  width: 21cm;
+  height: 29.7cm;
+  border: 1px dotted gray;
+}
+
+.footer1 {
+  position: relative;
+  background-color:transparent;
+  width: 21cm;
+}*/
+
+
+.footer1 {
+  position: relative;
+  top:0px;
+  background-color:white;
+  width: 21cm;
+}
+
+
+
+.p_label img {
+  display: inline;
+}
+</style>
+
+<style media="screen">
+  #print_form_con {
+    background-color: #ddd;
+    padding-top:20px;
+    padding-bottom:20px;
+  }
+
+.table_container {
+  min-height: 50px;
+  border: 1px solid black !important;
+}
+
+.divFooter {
+           position: fixed;
+           bottom: 0;
+           width: 100%;
+           display: none;
+       }
+
+table {
+  border: 0px;
+}
+thead tr th {
+  border: 1px solid black;
+}
+
+tbody tr td {
+  border-top:0px;
+  border-bottom: 0px;
+  border-left:1px solid black;
+  border-right:1px solid black;
+}
+
+
+
+.print_form {
+  position: relative;
+  margin: auto;
+  background-color:white;
+  width: 21cm;
+  height: 29.7cm;
+    box-shadow: 0px 0px 9px rgba(0,0,0,0.5);
+}
+
+.footer1 {
+  position: relative;
+  background-color:transparent;
+  width: 21cm;
+}
+
+
+
+  .p_textbox {
+    color:black;
+  }
+
+  .col-selected {
+    background-color: #C8DCE3;
+  }
+
+  .page-break {
+      page-break-after :always;
+  }
+</style>

@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8  col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading"><b>REPORTS</b></div>
+
+                <div class="panel-body">
+                  <!-- <ul class="report-list">
+                    <li><a href="#/reports/payment-reports">Laporan Penerimaan Cash</a></li>
+                    <li><a href="#/reports/selling-reports">Laporan Rekap Satuan</a></li>
+                    <li><a href="#/reports/kg-reports">Laporan Rekap Kg</a></li>
+                    <li><a href="#/reports/closing-day-reports">Laporan Tutup Harian</a></li>
+                    <li><a href="#/reports/active-member-report">Laporan Member Aktif</a></li>
+                    <li><a href="#/reports/member-reports">Laporan Transaksi Member (Kg)</a></li>
+                    <li><a href="#/reports/rak-report">Laporan Rak</a></li>
+                    <li><a href="#/reports/rak-report-not-taken">Rekap Belum Diambil</a></li>
+                  </ul> -->
+
+                  <ul class="report-list">
+                    <li ng-repeat="data in datas" ><a href="{{data[0]}}">{{data[1]}}</a></li>
+
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

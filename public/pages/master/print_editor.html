@@ -1,0 +1,123 @@
+<!-- <link media="all" type="text/css" rel="stylesheet" href="{{ URL::asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
+<link media="all" type="text/css" rel="stylesheet" href="{{ URL::asset('plugins/dragtable/dragtable.css') }}">
+<script src="{{ asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+<script src="{{ asset('plugins/dragtable/jquery.dragtable.js') }}"></script>
+<script src="{{ asset('plugins/colResizeable/colResizable-1.6.min.js') }}"></script> -->
+
+<form class="" action="#" method="post">
+      <input type="hidden" name="data_detail" id="data_detail" value="">
+      <input type="hidden" name="data_header" id="data_header" value="">
+    {{ csrf_field() }}
+  <div class="panel panel-default">
+    <div class="panel-heading" style="text-align:right">
+        <button ng-click="save()" type="button" name="btn_save" class="btn btn-primary">Save</button>
+    </div>
+    <div class="panel-body">
+      <div class="print_control">
+        <div class="row">
+          <div class="col-md-2">
+                <button ng-click="deleteDetail()" type="button" class="form-control" id="btn_delete_detail" name="btn_delete_detail">Delete Detail</button>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="form-control" id="btn_insert_text" name="btn_insert_text">Insert Textbox</button>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="form-control" id="btn_insert_label" name="btn_insert_label">Insert Label</button>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="form-control" id="btn_insert_rectangle" name="btn_insert_rectangle">Insert Rectangle</button>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="form-control" id="btn_insert_row" name="btn_insert_row">Insert Table Column</button>
+          </div>
+          <div class="col-md-2">
+              <button ng-click="deleteColumnDetail()" type="button" class="form-control" id="btn_delete_row" name="btn_delete_row">Delete Table Column</button>
+          </div>
+        </div>
+      </div>
+      <div id="print_form">
+        <div ng-hide="hide_table" id="table_container">
+          <table width="100%" id="table1" width="100%" border="1" data-borderstyle="full">
+            <thead>
+              <tr>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+          </table>
+          <div class="drag_button"><i class="fa fa-arrows fa-1x"></i></div>
+          <a style="display:none;z-index:900" class="btn_setting btn_setting_table" href="#"><i class="fa fa-gear"></i></a>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</form>
+
+
+<style media="screen">
+
+  #print_form {
+    position: relative;
+    margin: auto;
+    margin-top: 50px;
+    background-color:#E5E8D3;
+    width: 21cm;
+    height: 5.5in;
+    border: 1px solid gray;
+  }
+
+  .drag_button {
+    padding-top: 0px;
+    width: 12px;
+    height: 15px;
+    color: black;
+    position:absolute;
+    bottom:-5px;
+    right: -5px;
+    z-index: 100;
+    cursor: move;
+  }
+
+  textarea{
+    width: 100%;
+    height: 100%;
+    resize: none;
+  }
+
+  #print_form input{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border:none;
+  }
+
+  .col-selected {
+    background-color: #C8DCE3;
+  }
+
+.ui-selected > textarea {
+  /*border: 2px blue solid !important;*/
+  background-color: #83C5C9 !important;
+}
+
+.ui-selected > input {
+  /*border: 2px blue solid !important;*/
+  background-color: #83C5C9 !important;
+}
+
+
+</style>
